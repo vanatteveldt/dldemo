@@ -72,7 +72,7 @@ model = Model(sequence_input, preds)
 model.compile(loss='mean_absolute_error', optimizer=RMSprop(lr=0.004))
 
 print(model.summary())
-model.fit(train_data, train_labels, epochs=4, batch_size=128, verbose=0)
+model.fit(train_data, train_labels, epochs=4, batch_size=128)
 
 output = model.predict(test_data)
 keras_backend.clear_session()
@@ -86,4 +86,4 @@ p = output2sentiment(output)
 actual = output2sentiment(test_labels)
 
 acc = sum([x == y for (x, y) in zip(p, actual)]) / len(p)
-print("Final accuracy: {acc}")
+print(f"Final accuracy: {acc}")
