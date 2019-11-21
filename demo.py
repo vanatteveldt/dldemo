@@ -40,7 +40,7 @@ test_ids = data.id[data.gold == 1].values
 logging.info("Loading embeddings")
 # to download our Dutch embeddings: wget http://i.amcat.nl/w2v -O data/tmp/w2v_320d
 # of course, many pretrained embeddings exist for many languages
-embeddings = gensim.models.Word2Vec.load("/home/wva/ecosent/data/tmp/w2v_320d")
+embeddings = gensim.models.Word2Vec.load("w2v_320d")
 embeddings_matrix = np.zeros((len(tokenizer.word_index) + 1, embeddings.vector_size))
 for word, i in tokenizer.word_index.items():
     if word in embeddings.wv:
