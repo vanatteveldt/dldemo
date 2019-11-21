@@ -10,7 +10,7 @@ cd dldemo
 python3 -m venv env 
 env/bin/pip install -U pip wheel
 env/bin/pip install -r requirements.txt
-wget http://i.amcat.nl/w2v -O data/tmp/w2v_320d
+wget http://i.amcat.nl/w2v_320d  # Warning: 3.3G
 env/bin/python demo.py
 ```
 
