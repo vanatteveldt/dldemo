@@ -10,6 +10,7 @@ from keras.optimizers import RMSprop
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer
 from keras.utils import to_categorical
+from tensorflow_core.python.training.tracking.util import keras_backend
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s %(name)-12s %(levelname)-5s] %(message)s')
 
@@ -71,3 +72,18 @@ model = Model(sequence_input, preds)
 model.compile(loss='mean_absolute_error', optimizer=RMSprop(lr=0.004))
 
 print(model.summary())
+model.fit(train_data, train_labels, epochs=4, batch_size=128, verbose=0)
+
+output = model.predict(test_data)
+keras_backend.clear_session()
+
+def output2sentiment(output):
+    """Convert NN output to {-1, 0, 1}"""
+    return [0 if x[1] < .5 else (x[0] < 0.5 and -1 or 1) for x in output]
+
+
+p = output2sentiment(output)
+actual = output2sentiment(test_labels)
+
+acc = sum([x == y for (x, y) in zip(p, actual)]) / len(p)
+print("Final accuracy: {acc}")
